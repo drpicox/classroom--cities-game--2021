@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv /build /src/main/resources",
+    "build": "react-scripts build && ls && mv ./build ./src/main/resources",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
