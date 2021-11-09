@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build ",
-    "heroku-postbuild": "react-scripts build && mv ./build ./src/main/resources && rm -r ./public",
+    "heroku-postbuild": "react-scripts build && mkdir ./src/main/resources/static && mv -v ./build ./src/main/resources/static && rm -r ./public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
