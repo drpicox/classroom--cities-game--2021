@@ -1,25 +1,22 @@
 import { useAppSelector, useDispatchForm, useInputRef } from "www/store/hooks";
-import { getPlayerName } from "www/store/player/selectors";
+import { Section } from "www/theme/Section";
+import { getGame } from "www/store/game/selectors";
 import { nameChanged } from "./actions";
 
 export function NamedComponent({ entity }: any) {
-  const currentPlayer = useAppSelector(getPlayerName);
+  const currentPlayer = useAppSelector(getGame)?.playerName;
   const newNameRef = useInputRef();
   const changeName = useDispatchForm(nameChanged, entity.id, newNameRef);
   if (entity.owner !== currentPlayer) return null;
 
   return (
-    <>
-      <br />
+    <Section>
       <label>
         New name:
         <br />
         <input ref={newNameRef} />
-      </label>
-      <br />
+      </label>{" "}
       <button onClick={changeName}>Change name</button>
-      <br />
-      <br />
-    </>
+    </Section>
   );
 }

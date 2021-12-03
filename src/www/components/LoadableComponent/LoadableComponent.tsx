@@ -1,42 +1,63 @@
 import { useMemo } from "react";
-import { useAppSelector, useDispatchForm, useInputRef } from "www/store/hooks";
+import { Section } from "www/theme/Section";
+import {
+  useAppSelector,
+  useDispatchForm,
+  useInputRef,
+  useSelectRef,
+} from "www/store/hooks";
 import { loadOrdered, unloadOrdered } from "./actions";
 import { makeGetDockByLocation } from "../DockComponent/selectors";
 
 export function LoadableComponent({ entity }: any) {
   const newLoadUnloadAmountRef = useInputRef();
+  const resourceRef = useSelectRef();
   const getDockByLocation = useMemo(makeGetDockByLocation, []);
-  const sourceEntityId = useAppSelector((state) =>
+  const dockId = useAppSelector((state) =>
     getDockByLocation(state, entity)
   )?.id;
   const load = useDispatchForm(
     loadOrdered,
     entity.id,
-    sourceEntityId,
-    newLoadUnloadAmountRef
+    dockId,
+    newLoadUnloadAmountRef,
+    resourceRef
   );
   const unload = useDispatchForm(
     unloadOrdered,
     entity.id,
-    sourceEntityId,
-    newLoadUnloadAmountRef
+    dockId,
+    newLoadUnloadAmountRef,
+    resourceRef
   );
 
   if (!entity.isLoadable) return null;
 
   return (
-    <>
-      <div>Load/unload amount: {entity.loadUnloadAmount}</div>
+    <Section>
       <label>
         Load/unload amount:
+        <br />
         <input type="number" ref={newLoadUnloadAmountRef} />
       </label>
+      <br />
+      <label>
+        Resource:
+        <br />
+        <select ref={resourceRef}>
+          {Object.keys(entity.resources).map((resource) => (
+            <option key={resource} value={resource}>
+              {resource}
+            </option>
+          ))}
+        </select>
+      </label>{" "}
       <button onClick={load} disabled={entity.loadRequested}>
         Load
       </button>
       <button onClick={unload} disabled={entity.unloadRequested}>
         Unload
       </button>
-    </>
+    </Section>
   );
 }

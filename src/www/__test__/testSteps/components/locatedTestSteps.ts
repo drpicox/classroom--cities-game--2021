@@ -1,9 +1,8 @@
 import { PostLineStep, step } from "../../testPost";
-import { screen } from "@testing-library/dom";
+import { screen } from "@testing-library/react";
 
 export const locatedTestSteps: PostLineStep[] = [
-  step(/It should be at the location (\d+)/, theLocationShouldBe),
-  step(/The location should be (\d+)/, theLocationShouldBe),
+  step(/The _location_ number should be (\d+)/, theLocationShouldBe),
 ];
 
 function theLocationShouldBe(line: any, [, location]: string[]) {

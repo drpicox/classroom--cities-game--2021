@@ -1,22 +1,20 @@
 package com.drpicox.game.testPost;
 
-import com.drpicox.game.common.api.GlobalRestException;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.stereotype.Component;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 @Component
 public class SnapshotService {
@@ -83,12 +81,6 @@ public class SnapshotService {
             snapshot.setResolvedException(result.getResolvedException());
             lastSnapshot = snapshot;
 
-            if (responseStatus == 400) {
-                var error = gson.fromJson(responseBody, Map.class);
-                if (error.containsKey("isError") && error.get("isError").equals(Boolean.TRUE))
-                    throw new GlobalRestException(error.get("message").toString());
-            }
-
             if (responseStatus == 404) {
                 throw new AssertionError("The requested URL " + snapshot.getMethod() + " " + snapshot.getUrl() + " should exists.\n" +
                         "Make sure that you have an Api controller registered correctly with the annotations @RequestMapping, @GetMapping, ... for the current method and url");
@@ -96,11 +88,6 @@ public class SnapshotService {
 
             return gson.fromJson(responseBody, classOfT);
         } catch (Throwable reason) {
-            if (reason instanceof GlobalRestException) {
-                var expectedReason = (GlobalRestException) reason;
-                throw expectedReason;
-            }
-
             var message = new StringBuilder()
                     .append("Error resolving a REST api call:\n")
                     .append(snapshot.getPrettyPrint())
@@ -174,5 +161,9 @@ public class SnapshotService {
         }
         System.out.println(lastSnapshot.getPrettyPrint());
         System.out.println("- END LAST SNAPSHOT ------------------------------------------");
+    }
+
+    public boolean hasPendingSnapshot() {
+        return lastSnapshot != null;
     }
 }

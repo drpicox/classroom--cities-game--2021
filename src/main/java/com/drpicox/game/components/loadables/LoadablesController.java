@@ -1,36 +1,30 @@
 package com.drpicox.game.components.loadables;
 
-import com.drpicox.game.games.Game;
+import com.drpicox.game.components.resourceds.ResourcedsController;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
 
 @Component
 public class LoadablesController {
 
     private final LoadablesRepository loadablesRepository;
+    private final ResourcedsController resourcedsController;
 
-    public LoadablesController(LoadablesRepository loadablesRepository) {
+    public LoadablesController(LoadablesRepository loadablesRepository, ResourcedsController resourcedsController) {
         this.loadablesRepository = loadablesRepository;
+        this.resourcedsController = resourcedsController;
     }
 
-    public void create(String entityId, Game game) {
-        var component = new Loadable(entityId, game);
+    public Loadable create(String entityId) {
+        var component = new Loadable(entityId);
         loadablesRepository.save(component);
+        return component;
     }
 
-    public Loadable orderLoad(String entityId, int loadAmount, String sourceEntityId) {
-        var loadable = loadablesRepository.findById(entityId).get();
-        loadable.orderLoadUnload(loadAmount, sourceEntityId);
-        loadablesRepository.save(loadable);
-        return loadable;
+    public void load(String loadableId, String dockId, String resource, int loadUnloadAmount) {
+        resourcedsController.transfer(dockId, loadableId, resource, loadUnloadAmount);
     }
 
-    public Loadable orderUnload(String entityId, int loadAmount, String sourceEntityId) {
-        var loadable = loadablesRepository.findById(entityId).get();
-        loadable.orderLoadUnload(-loadAmount, sourceEntityId);
-        loadablesRepository.save(loadable);
-        return loadable;
+    public void unload(String loadableId, String dockId, String resource, int loadUnloadAmount) {
+        resourcedsController.transfer(loadableId, dockId, resource, loadUnloadAmount);
     }
 }
