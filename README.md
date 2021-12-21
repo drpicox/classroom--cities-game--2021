@@ -8,19 +8,21 @@ Benvingut!
 Abans de començar, omple el següent qüestionari:
 
 - Quin és el teu nom?
-  ________________________________________
+  Gerard Vilaró Cascales
 
 - Modifica el `pom.xml` i concatena pel davant el teu usuari 
   de GitHub a artifactId
 
 - Vas participar en el canvi de tema?
-  ________________________________________
+  No vaig ser el que va fer la proposta.
+  En una reunió de discord entre tot l'equip es va decidir que la nostra temàtica seria la màgia.
 
 - En punts, quin pes diries que vas aportar al canvi de tema?
-  ______
+  Del 1 al 5, un 1. En la primera llista de funcionalitats i la creació de l'arbre de dependències ( activitat 1 )
+  vaig participar amb la mateixa proporció que la resta dels meus companys. El tema es triava en aquesta primera activitat.
 
 - Qui va contribuir més en el canvi de tema del teu grup?
-  ________________________________________
+  No ho recordo. Ho va proposar 1 dels 5 membres espontàniament i tots ens hi vam adherir.
 
 
 ## Setup
@@ -46,8 +48,6 @@ Setup Javascript BackEnd:
 - Install node v14 amd yarn
 
 - Execute `yarn`
-
-## canvi de prova
 
 ## Develop Run
 

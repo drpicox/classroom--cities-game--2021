@@ -16,12 +16,12 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class Post_20211215_Funcionalitat1_Test {
+public class Post_20211221_Colonies_Test {
 
     @Autowired private PostTestFactory postTestFactory;
 
     @TestFactory
     List<DynamicTest> makeTests() throws Exception {
-        return postTestFactory.createTests("2021-12-15_funcionalitat_1");
+        return postTestFactory.createTests("2021-12-21_colonies");
     }
 }
