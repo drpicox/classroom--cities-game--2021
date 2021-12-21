@@ -1,8 +1,10 @@
 package com.drpicox.game.entities.decks.factories;
 
 import com.drpicox.game.components.builder.BuilderFactory;
+import com.drpicox.game.components.colonizer.ColonizerController;
 import com.drpicox.game.components.containeds.ContainedsController;
 import com.drpicox.game.components.docks.DocksController;
+import com.drpicox.game.components.locateds.LocatedsController;
 import com.drpicox.game.components.nameds.NamedsController;
 import com.drpicox.game.components.resourcedModifiers.ResourcedModifiersController;
 import com.drpicox.game.components.resourceds.ResourceType;
@@ -21,8 +23,10 @@ public class ColonizationStoreFactory implements BuilderFactory {
     private final ResourcedsController resourcedsController;
     private final ResourcedModifiersController resourcedModifiersController;
     private final DocksController docksController;
+    private final ColonizerController colonizerController;
+    private final LocatedsController locatedsController;
 
-    public ColonizationStoreFactory(EntityIdGenerator entityIdGenerator, ContainedsController containedsController, NamedsController namedsController, TypedsController typedsController, ResourcedsController resourcedsController, ResourcedModifiersController resourcedModifiersController, DocksController docksController) {
+    public ColonizationStoreFactory(EntityIdGenerator entityIdGenerator, ContainedsController containedsController, NamedsController namedsController, TypedsController typedsController, ResourcedsController resourcedsController, ResourcedModifiersController resourcedModifiersController, DocksController docksController, ColonizerController colonizerController, LocatedsController locatedsController) {
         this.entityIdGenerator = entityIdGenerator;
         this.containedsController = containedsController;
         this.namedsController = namedsController;
@@ -30,6 +34,8 @@ public class ColonizationStoreFactory implements BuilderFactory {
         this.resourcedsController = resourcedsController;
         this.resourcedModifiersController = resourcedModifiersController;
         this.docksController = docksController;
+        this.colonizerController = colonizerController;
+        this.locatedsController = locatedsController;
     }
 
     @Override
@@ -49,6 +55,7 @@ public class ColonizationStoreFactory implements BuilderFactory {
         resourcedsController.consume(dockId, ResourceType.GOLD, 1);
 
         var entityId = entityIdGenerator.nextEntityId("deck");
+        colonizerController.create(entityId, dockId, locatedsController.getLocation(dockId));
         containedsController.create(entityId, containerId);
         namedsController.create(entityId, getName());
         typedsController.create(entityId, "deck");

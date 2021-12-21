@@ -22,4 +22,8 @@ public class OwnedsController {
     public List<Owned> findAllByOwner(Player owner) {
         return ownedsRepository.findAllByOwner(owner);
     }
+
+    public Owned findById(String id ) {
+        return ownedsRepository.findById(id).orElse(null);
+    }
 }

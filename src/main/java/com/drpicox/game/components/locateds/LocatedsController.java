@@ -28,6 +28,12 @@ public class LocatedsController {
         locatedsRepository.save(located);
     }
 
+    public void changeLocation(String entityId, int newDesiredLocation) {
+        var located = locatedsRepository.findById(entityId).get();
+        located.changeLocation(newDesiredLocation);
+        locatedsRepository.save(located);
+    }
+
     public List<Located> findByLocation(int location) {
         return locatedsRepository.findByLocation(location);
     }

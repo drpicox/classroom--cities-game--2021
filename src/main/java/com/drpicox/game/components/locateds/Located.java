@@ -22,4 +22,8 @@ public class Located extends EcsComponent {
     public void moveTo(int destination) {
         location += destination < location ? -1 : +1;
     }
+
+    void changeLocation(int newDesiredLocation) {
+        this.location = newDesiredLocation;
+    }
 }
