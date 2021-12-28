@@ -4,6 +4,13 @@ import { PostLineStep, step } from "../../testPost";
 
 export const containedsTestSteps: PostLineStep[] = [
   step(
+    /The count of producing buildings should be (\d+)/,
+    (line, [, expectedCount]) => {
+      const counter = screen.getByTestId("producing-building-count");
+      expect(counter).toHaveTextContent(expectedCount);
+    }
+  ),
+  step(
     /There should contain at least (\d+) "([^"]+)"/,
     (line, [, count, type]) => {
       const item = queryAllContainedListItem(type);

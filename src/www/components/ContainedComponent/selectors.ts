@@ -15,3 +15,11 @@ export function makeGetAllContainedByEntityId() {
       entities.filter((e) => e.containerId === entityId)
   );
 }
+
+export function makeCountProducingContaineds() {
+  const getContaineds = makeGetAllContainedByEntityId();
+  return createSelector(
+    getContaineds,
+    (containeds) => containeds.filter((x) => x.modifierRoundIncrement).length
+  );
+}

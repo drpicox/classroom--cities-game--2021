@@ -4,15 +4,26 @@ coder: examen
 ---
 # Funcionalitat 2
 
-Escriu aquí el post de la funcionalitat descrita a l'enunciat.
-No canviïs el nom del fitxer ni el títol del post.
+You know that you can have lots of buildings, but,
+how many buildings do you have that increment the city productivity?
 
-## Que afegeixes?
+## Counting producing buildings
 
-Què necessites per començar? Quina acció fas? Quin resultat trobes?
+Let's enter to a game.
 
  * Given that "leonard" is playing.
  * Go to the next player "leonard"
  <!-- SNAPSHOT status=200 -->
  * Go to the "leonard" "city" "Capital".
+ * The count of producing buildings should be 0.
+
+But, if we build producing buildings...
+
+ * Given that the "leonard" "city" "Capital" has built a "Gold mine"
+ * Given that the "leonard" "city" "Capital" has built a "Wood mill"
+ * Given that the "leonard" "city" "Capital" has built a "Gold vault"
+ * Refresh the game.
+ <!-- SNAPSHOT status=200 -->
+ * The count of producing buildings should be 2.
+
 
