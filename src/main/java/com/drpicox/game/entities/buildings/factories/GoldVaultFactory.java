@@ -41,6 +41,13 @@ public class GoldVaultFactory implements BuilderFactory {
 
     @Override
     public String build(String containerId) {
+        var coContaineds = containedsController.findAllByContainerId(containerId);
+        var hasGoldMine = coContaineds.stream().filter((contained) -> {
+            var name = namedsController.getName(contained.getEntityId());
+            return name.equals("Gold mine");
+        }).findAny().isPresent();
+        if (!hasGoldMine) return null;
+
         var entityId = entityIdGenerator.nextEntityId("building");
         containedsController.create(entityId, containerId);
         namedsController.create(entityId, getName());

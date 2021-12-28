@@ -7,4 +7,5 @@ import java.util.List;
 interface ContainedsRepository extends JpaRepository<Contained, String> {
 
     List<Contained> findAllByContainerIdIn(List<String> containersId);
+    List<Contained> findAllByContainerId(String containerId);
 }

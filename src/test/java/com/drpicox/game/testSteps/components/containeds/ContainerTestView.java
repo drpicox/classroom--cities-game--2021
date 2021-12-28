@@ -5,6 +5,7 @@ import com.drpicox.game.testSteps.entities.EntityTestView;
 import com.drpicox.game.testSteps.game.GameTestView;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -29,6 +30,10 @@ public class ContainerTestView {
     public EntityResponse getContained(String type, String name) {
         var result = streamContaineds().filter(byType(type)).filter(byName(name)).findAny();
         return result.orElseThrow(() -> errorNoContainedEntitiesWithTypeName(type, name));
+    }
+
+    public Optional<EntityResponse> findContained(String type, String name) {
+        return streamContaineds().filter(byType(type)).filter(byName(name)).findAny();
     }
 
     public static final Predicate<EntityResponse> byContainer(String containerId) {

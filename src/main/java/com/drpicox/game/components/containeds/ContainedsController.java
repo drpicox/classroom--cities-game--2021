@@ -2,6 +2,8 @@ package com.drpicox.game.components.containeds;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ContainedsController {
 
@@ -18,5 +20,9 @@ public class ContainedsController {
 
     public String getContainerId(String entityId) {
         return containedsRepository.findById(entityId).get().getContainerId();
+    }
+
+    public List<Contained> findAllByContainerId(String containerId) {
+        return containedsRepository.findAllByContainerId(containerId);
     }
 }

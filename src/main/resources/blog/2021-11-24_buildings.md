@@ -161,6 +161,7 @@ gold in your city up to 15. But it costs 5 of gold.
 First we make sure that we have everything that we need:
 
  * Given that "leonard" is playing.
+ * Given that the "leonard" "city" "Capital" has built a "Gold mine"
  * Given that the "leonard" "city" "Capital" has built a "Gold vault"
  * Given that the "leonard" "city" "Capital" has resource "gold" count 5.
  * Go to the next player "leonard"
